@@ -1,0 +1,50 @@
+class ListNode {
+    int val;
+    ListNode next;
+    ListNode() { val = 0; next = null; }
+    ListNode(int val) { this.val = val; next = null; }
+    ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+}
+
+public class Solution {
+    public ListNode reverseKGroup(ListNode head, int k) {
+        if (head == null || k == 1) return head;
+
+        ListNode dummy = new ListNode(-1);
+        dummy.next = head;
+        ListNode pertail = dummy;
+        int noofnode = 0;
+        ListNode temp = head;
+        
+        while (temp != null) {
+            temp = temp.next;
+            noofnode++;
+        }
+
+        // Loop until we have processed all full k-groups
+        while (noofnode >= k) {
+            ListNode pretemp = pertail.next;
+            ListNode currenttemp = pretemp.next;
+            ListNode curriterationtail = pretemp;
+            int counter = k - 1;
+
+            // Reverse k nodes
+            while (counter > 0) {
+                ListNode nextNodetemp = currenttemp.next;
+                currenttemp.next = pretemp;
+                pretemp = currenttemp;
+                currenttemp = nextNodetemp;
+                counter--;
+            }
+
+            // Connect reversed part to the rest of the list
+            pertail.next = pretemp;
+            curriterationtail.next = currenttemp;
+            pertail = curriterationtail;
+            noofnode -= k;
+        }
+
+        return dummy.next;
+    }
+}
+

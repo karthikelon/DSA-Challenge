@@ -1,0 +1,39 @@
+import java.util.*;
+public class Main
+{
+	public static void main(String[] args) {
+	     ArrayList<Integer> A = new ArrayList<>();
+	     A.add(2);
+	     A.add(4);
+	     A.add(7);
+	     A.add(8);
+	     A.add(9);
+	     A.add(10);
+	     ArrayList<Integer> resultantList = new ArrayList<>();
+	     resultantList=wave(A);
+	     for(int i=0;i<resultantList.size();i++){
+	         System.out.print(resultantList.get(i)+" ");
+	     }
+	}
+	public static ArrayList<Integer> wave(ArrayList<Integer>A){
+	    Collections.sort(A);
+	    ArrayList<Integer> list2 = new ArrayList<>();
+	    for(int i=0;i<A.size();i=i+2){
+	        if(i+1< A.size()){
+	            list2.add(A.get(i+1));
+	            list2.add(A.get(i));
+	        }	    
+	        
+	    }
+	    if(A.size()%2!=0){
+	        list2.add(A.get(A.size()-1));
+	    }
+	    return list2;
+	}
+}
+
+
+
+actionResult.saveParameterValue("inputValue[0],hours);
+
+\"("inputValue[0]\"

@@ -1,0 +1,57 @@
+import java.util.*;
+public class Main
+{
+	public static void main(String[] args) {
+		System.out.println("Hello World");
+		
+		Node<Integer> head=new Node<>(1);
+	
+	    Node<Integer> n1=new Node<>(4);
+	    Node<Integer> n2=new Node<>(14);
+	    
+	    head.next=n1;
+	    n1.next=n2;
+	    
+	    
+	    Node<Integer> newlist=insertInPostion(0,55,head);
+	    //or
+	    // head=insertInPostion(0,55,head);
+	    printll(newlist);
+	   
+	    
+	}
+	public static void printll(Node<Integer>head){
+	    Node<Integer> temp=head;
+	     while(temp!=null){
+	        System.out.print(temp.val+"->");
+	        temp=temp.next;
+	    }
+	}
+	public static Node<Integer> insertInPostion(int pos,int data ,Node<Integer>head){
+	   
+	    Node<Integer>newnode=new Node<>(data);
+	    if(pos==0){
+	        newnode.next=head;
+	        return newnode;
+	    }
+	    Node<Integer>temp=head;
+	    int count=0;
+	    while(count<pos-1){
+	        temp=temp.next;
+	        count++;
+	    }
+	    newnode.next=temp.next;
+	    temp.next=newnode;
+	    
+	    return head;
+	}
+}
+class Node<E>{
+    E val;
+    Node<E> next;
+    
+    public Node(E val){
+        this.val=val;
+        this.next=null;
+    }
+}

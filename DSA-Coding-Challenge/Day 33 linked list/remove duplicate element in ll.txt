@@ -1,0 +1,66 @@
+Remove Duplicate from List
+Linked List
+IBMPaypalUber
+Problem Statement
+Given the head of a sorted linked list, delete all duplicates such that each element appears only once. Return the linked list sorted as well.
+
+Example 1:
+Input:
+
+head = [-1, -1, 2, 2, 3, 3, 3]
+
+Output:
+
+[-1, 2, 3]
+
+Example 2:
+Input:
+
+head = [-1, 1, 2, 2]
+
+Output:
+
+[-1, 1, 2]
+
+Constraints:
+-300 <= node value <= 300
+
+Each list has atmost 100 nodes
+
+solution -
+class ListNode {
+	int val;
+	ListNode next;
+	ListNode() { val = 0; next = null; }
+	ListNode(int val) { this.val = val; next = null; }
+	ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+} 
+
+public class Solution {
+	public ListNode deleteDuplicates(ListNode head) {
+		ListNode temp=head;
+    ListNode temp2=head.next;
+    while(temp2!=null){
+      if(temp.val!=temp2.val){
+        temp.next=temp2;
+        temp=temp.next;
+        if(temp2.next==null){
+          break;
+        }
+        temp2=temp2.next;
+      }
+      if(temp.val==temp2.val&&temp2.next==null){
+       temp.next=null;
+        break;
+      }
+      if(temp.val==temp2.val){
+        if(temp2.next==null){
+          break;
+        }
+        temp2=temp2.next;
+      }
+     //System.out.println(temp.val+" "+temp2.val);
+    } 
+      return head;
+    }
+}

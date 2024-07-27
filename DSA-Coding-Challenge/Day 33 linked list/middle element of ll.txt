@@ -1,0 +1,47 @@
+
+public class Main
+{
+	public static void main(String[] args) {
+        
+        Node head=new Node(1);
+        Node n1=new Node(2);
+        Node n2=new Node(3);
+        Node n3=new Node(4);
+        Node n4=new Node(5);
+        Node n5=new Node(6);
+      
+        
+        head.next=n1;
+        n1.next=n2;
+        n2.next=n3;
+        n3.next=n4;
+        n4.next=n5;
+       
+        
+        Node fastP=head;
+        Node slowp=head;
+        
+        System.out.println();
+        while(fastP.next!=null&&fastP.next.next!=null){
+            fastP=fastP.next.next;
+            //System.out.print(slowp.data+"-->");
+            slowp=slowp.next;
+            
+        }
+        if(fastP.next.next==null){
+            slowp=slowp.next;
+        }
+        System.out.println("middle element"+slowp.data);
+
+
+	}
+}
+class Node{
+    int data;
+    Node next;
+    
+    Node(int data){
+        this.data=data;
+        this.next=null;
+    }
+}

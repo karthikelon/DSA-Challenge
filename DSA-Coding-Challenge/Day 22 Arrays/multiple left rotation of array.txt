@@ -1,0 +1,33 @@
+import java.util.*;
+public class Main
+{
+	public static void main(String[] args) {
+		int a[]={31,44,2,6,29};
+		int b[]={2,3};
+		int [][]solutionMatrix=new int[b.length][a.length];
+		solutionMatrix=multipleLeftRotation(a,b);
+		for(int[]x:solutionMatrix){
+		    for(int y:x){
+		        System.out.print(y+" ");
+		    }
+		    System.out.println();
+		}
+	}
+	public static int[][]multipleLeftRotation(int [] a,int [] b){
+	    int [][]solutionMatrix=new int[b.length][a.length];
+	    for(int i=0;i<b.length;i++){
+	        solutionMatrix[i]=rotationhelper(a.clone(),b[i]);
+	    }
+	    return solutionMatrix;
+	}
+	public static int[] rotationhelper(int []a,int iteration){
+	    for(int i=0;i<iteration;i++){
+	        int temp=a[0];
+	        for(int j=0;j<a.length-1;j++){
+	            a[j]=a[j+1];
+	        }
+	        a[a.length-1]=temp;
+	    }
+	    return a;
+	}
+}

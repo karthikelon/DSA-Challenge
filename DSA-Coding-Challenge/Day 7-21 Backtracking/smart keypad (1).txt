@@ -1,0 +1,43 @@
+/******************************************************************************
+
+                            Online Java Compiler.
+                Code, Compile, Run and Debug java program online.
+Write your code in this editor and press "Run" button to execute it.
+
+*******************************************************************************/
+import java.util.*;
+public class Main
+{
+	public static void main(String[] args) {
+		List<String> solution=new ArrayList<>();
+		solution.addAll(letterCombinations ("23"));
+		for(String x:solution){
+		    System.out.print(x+" ");
+		}
+	}
+	
+	public static List<String> letterCombinations (String str){
+	    List<String> solution=new ArrayList<>();
+	    
+	    String map[]={"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+	    letterCombinationshelper (str,map,0,solution ,"");
+	    return solution;
+	    
+	}
+	public static void letterCombinationshelper (String str,String map[] ,int len,List<String>solution ,String creation){
+	   //System.out.println("inside the helper with length"+len);
+	    if(len==str.length()){
+	        String value=creation;
+	        solution.add(value);
+	        return ;
+	    }
+	    
+	    int keypadnumber=str.charAt(len)-'0';
+	    String keypadstring=map[keypadnumber];
+	    
+	   for(int i=0;i<keypadstring.length();i++){
+	       letterCombinationshelper(str,map,len+1,solution,creation+keypadstring.charAt(i));
+	   }
+	    
+	}
+}

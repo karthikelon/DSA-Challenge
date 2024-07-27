@@ -1,0 +1,41 @@
+import java.util.*;
+public class Main
+{
+	public static void main(String[] args) {
+	    int []arr={12,9,8,2,11};
+	    List<List<Integer>>solution=new ArrayList<>();
+	    solution=minimumAbsDifference(arr);
+		System.out.println(solution);
+	}
+	public static List<List<Integer>>minimumAbsDifference(int []arr){
+	    List<List<Integer>>solution=new ArrayList<>();
+	    
+	    
+	    Arrays.sort(arr);
+	    int minDifference=10000;
+	    //we are finding  the minDifference
+	    for(int i=0;i<arr.length-1;i++){
+	        int tempDiff=arr[i+1]-arr[i];
+	        if(tempDiff<minDifference){
+	            minDifference=tempDiff;
+	        }
+	    }
+	    System.out.println(minDifference);
+	    //we will add the list of number in the solutionSubset which have minDifference
+	    
+	    for(int i=0;i<arr.length-1;i=i+2){
+	        int tempDiff=(arr[i+1]-arr[i]);
+	        if(tempDiff==minDifference){
+	            List<Integer>subSolution=new ArrayList<>();
+	            subSolution.add(arr[i]);
+	            subSolution.add(arr[i+1]);
+	            solution.add(subSolution);
+	        }
+	        
+	        
+	        
+	    }
+	    
+	    return solution;
+	}
+}
