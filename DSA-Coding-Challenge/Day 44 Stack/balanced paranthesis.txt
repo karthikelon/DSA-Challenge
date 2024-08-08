@@ -1,0 +1,47 @@
+Balanced Parantheses
+Stack
+String
+AsanaLinkedInMicrosoft
+Problem Statement
+Given a string A consisting only of '(' and ')'.
+
+You need to find whether parentheses in A are balanced or not, if it is balanced then return 1 else return 0.
+
+Example 1:
+Input:
+
+ A = "(()())"
+
+Output:
+
+1
+
+Explanation:
+
+Here String A contains balanced Parentheses
+
+
+import java.util.Stack;
+public class Solution {
+    public int isBalanced(String A) {
+        
+        Stack s1=new Stack();
+        //iterate through the string A
+        for(int i=0;i<A.length();i++){
+          if(A.charAt(i)=='('){
+            s1.push('(');
+
+          }
+          else if(A.charAt(i)==')'&& s1.isEmpty()){
+            s1.push(')');
+          }
+          else if(A.charAt(i)==')'&& (char)s1.peek()=='('){
+            s1.pop();
+          }
+          }
+          if(s1.isEmpty()){
+            return 1;
+          }
+          return 0;
+        }
+}

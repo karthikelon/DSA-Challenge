@@ -1,0 +1,114 @@
+ Infix to Postfix
+Stack
+String
+LinkedInIBMInfosysVisa
+Problem Statement
+Given an infix expression in the form of string str. Convert this infix expression to a postfix expression.
+
+Note: The expression will contain +, -, /, *, ^ as operators (where ^ denotes the order or power having the highest precedence), And operands will only contain alphabets.
+
+Example 1:
+Input:
+
+str = "a+b*(c^d-e)^(f+g*h)-i"
+
+Output:
+
+abcd^e-fgh*+^*+i-
+
+Explanation:
+
+After converting the infix expression into a postfix expression, the resultant expression will be abcd^e-fgh*+^*+i-
+
+Example 2:
+Input:
+
+str = "A*(B+C)/D"
+
+Output:
+
+ABC+*D/
+
+Constraints:
+1 ≤ |str| ≤ 105
+
+import java.util.*;
+public class Solution {
+    public static String infixToPostfix(String infixExpression) {
+
+      //create a stack and result string
+      //iterate through the given inflix
+      //there are 4 cases possible
+      //if result string has ( then push it into stack
+      //if result string has ) then pop and append to resultstring until you encounter ) which should also be poped
+      //if result string has operator then 
+              // case1 current opeator has higher precedence then push
+              //case 2&3 current operator has equal orlower precedence  then pop it push it to resultstring and then push string to stack
+              //case 4 if no prior operator or stack is empty then push it into stack 
+      //if result string has operand then push it to result set 
+
+
+      //Stack s1=new Stack();
+      Stack<Character> s1 = new Stack<>();
+      //store result in string builder
+      StringBuilder resultString=new StringBuilder();
+
+
+      for(int i=0;i<infixExpression.length();i++){
+          char currentChar = infixExpression.charAt(i);
+          if(currentChar=='('){
+            s1.push(currentChar);
+          }
+          else if(isoperand(currentChar)){
+            resultString.append(currentChar);
+           // System.out.println("value -->"+resultString);
+          }
+          else if(currentChar==')'){
+            while(!s1.isEmpty()&& s1.peek()!='('){
+                char tobeappended=(char)s1.pop();
+                resultString.append(tobeappended);
+              }  
+              s1.pop(); 
+          }
+          else if (isoperator(currentChar)) {
+                while (!s1.isEmpty()  && !isHigherPrecedence(currentChar, s1.peek())) {
+                    resultString.append(s1.pop());
+                }
+                s1.push(currentChar);
+            }
+      }
+      while(!s1.isEmpty()){
+          resultString.append(s1.pop());
+      }
+      String output=resultString.toString();
+      return output;
+    }
+    public static boolean isoperand(char inputchar){
+        return Character.isDigit(inputchar) || Character.isLetter(inputchar);
+    }
+    public static boolean isoperator(char inputchar){
+      if(inputchar=='+'||inputchar=='-'||inputchar=='*'||inputchar=='/'||
+         inputchar=='^'){
+          return true;
+         }
+         return false;
+    }
+    public static boolean isHigherPrecedence(char A,char B){
+      Map<Character,Integer> operatorPriorityMap =new HashMap<>();
+        //operatorPriorityMap.put('E', -1);
+        operatorPriorityMap.put('(', 0);
+        operatorPriorityMap.put(')', 0);
+        operatorPriorityMap.put('+', 1);
+        operatorPriorityMap.put('-', 1);
+        operatorPriorityMap.put('*', 2);
+        operatorPriorityMap.put('/', 2);
+        operatorPriorityMap.put('^', 3);
+        
+      int priority1=operatorPriorityMap.get(A);
+      int priority2=operatorPriorityMap.get(B);
+
+      return priority1>priority2;
+    }
+}
+
+ 
