@@ -1,0 +1,75 @@
+Problem Statement
+Given an array A[] of N integers, where A[i] denotes the height of ith tree. 
+Geek needs to cut down M meters of wood. He has a woodcutting machine that works as follows:  Set the blade at a height parameter H, and the machine cuts off all trees having a height greater than H. The trees having less than height H remains intact.
+Since Geek is an environmentalist, he doesn't want to cut woods more than necessary, so he set the height H as high as possible.
+Find the maximum height H of the blade that still allows to cutoff at least M meters of wood.
+
+Example 1:
+Input:
+A[] = {20, 15, 10, 17}
+M = 7
+
+Output:
+
+15
+
+Explanation:
+
+Set the height parameter to 15, then Geek can chop:
+  1.5 metres from first tree
+  2. 0 metres from second tree
+  3. 0 metres from third tree
+  4. 2 metres from fourth tree
+  So in total Geek chopped 5 + 2 = 7 metres of wood.
+solution-
+import java.util.*;
+class Solution {
+    public int maxHeight(int N, int[] A, int M) {
+        //You can code here
+
+        //sort the array
+        //find the mid element using binary search and move via the same 
+        //find if we keep the mid element as height parameter of blade
+        //move right wards to get to know till which element of Maximum height H so that it still 
+        //allow cutoff atleast M meter of wood.
+        //but the M value can be any value not neccessarily the one present in the array 
+        //so we will create aleftvalue assign to 0 and rightvalue which is max array value 
+        //this H value we will pass 
+
+        Arrays.sort(A);
+        int largestnum=0;
+        int left=0,right=A[N-1];
+        int mid=left+((right-left)/2);
+        while(left<=right){
+           mid=left+((right-left)/2);
+           if(gettingGreaterSum(A,mid,M)){
+              if(largestnum<mid){
+                largestnum=mid;
+              }
+              left=mid+1;
+           }else{
+            right=mid-1;
+           }
+        }
+        
+        return largestnum;
+    }
+    public boolean  gettingGreaterSum(int []A,int H,int targetwoodcut){
+      int sum=0;
+      if(H<A[A.length-1]){
+        for(int i=0;i<A.length;i++){
+          if(H<=A[i]){
+              sum=sum+(A[i]-H);
+          }
+        }
+      }else{
+        return false;
+      }
+      
+      if(sum>=targetwoodcut){
+        System.out.println("valid H value is "+H);
+        return true;
+      }
+      return false;
+  }
+}

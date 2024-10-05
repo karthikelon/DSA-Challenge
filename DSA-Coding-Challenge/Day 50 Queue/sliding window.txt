@@ -1,0 +1,53 @@
+import java.util.*;
+
+public class Solution
+{
+    public static List<Integer> maxSlidingWindow(int[] nums, int k)
+    {
+        List<Integer>solution=new ArrayList<>();
+        ArrayDeque<Integer> pq=new ArrayDeque<>();
+        int start=0;
+        int end=0;
+          for(int i=0;i<k;i++){
+            if(pq.isEmpty()){
+                pq.addFirst(nums[i]);
+            }else if(pq.peekLast()<nums[i]){
+              while(!pq.isEmpty() && pq.peekLast()<nums[i]){
+                pq.removeLast();
+              }
+              pq.addLast(nums[i]);
+            }else if (pq.peek()>=nums[i]){
+              pq.addLast(nums[i]);
+            }
+            
+          }
+          solution.add(pq.peekFirst());
+          // we have reached the window size
+          end=k-1;
+          while(end<nums.length){
+            //pop the first element of the window
+            //push new element into window
+            //add the element to the solution arraylist
+            if(pq.peek()==nums[start]){
+              pq.removeFirst();
+            }
+            start++;
+            end++;
+            if(end>=nums.length){
+              break;
+            }
+            //push new element
+            if ( pq.peekLast()>=nums[end]){
+              pq.addLast(nums[end]);
+            }else if( pq.peekLast()<nums[end]){
+              while(!pq.isEmpty()&& pq.peekLast()<nums[end]){
+                    pq.removeLast();
+              }
+              pq.addLast(nums[end]);
+            }
+            solution.add(pq.peekFirst());
+            
+          }
+        return solution;
+    }
+}

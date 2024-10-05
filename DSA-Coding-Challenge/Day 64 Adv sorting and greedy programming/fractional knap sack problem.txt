@@ -1,0 +1,108 @@
+Problem Statement
+Given weights and values of N items, we need to put these items in a knapsack of capacity W to get the maximum total value in the knapsack.
+
+Note: Unlike 0/1 knapsack, you are allowed to break the item. 
+
+Example 1:
+Input:
+
+N = 3, W = 50
+values[] = {60,100,120}
+weight[] = {10,20,30}
+
+Output:
+
+240.00
+
+Explanation:
+
+Total maximum value of item we can have is 240.00 from the given capacity of sack.
+
+Example 2:
+Input:
+
+N = 2, W = 50
+values[] = {60,100}
+weight[] = {10,20}
+
+Output:
+
+160.00
+
+Explanation:
+Total maximum value of item we can have is 160.00 from the given capacity of sack.
+
+Constraints:
+1 <= N <= 105
+1 <= W <= 105
+
+solution-
+import java.util.*;
+
+public class Solution {
+    public static double fractionalKnapsack(int[] values, int[] weights, int capacity) {
+     //You can code here
+
+    //create a array of p/n ratio agenda it to take the highest p/n in descending order
+    
+    double PN[]=new double [values.length];
+    double maxvalue=0;
+    int maxvalueindex=0;
+    for(int i=0;i<values.length;i++){
+      PN[i]=(double)values[i]/weights[i];
+      System.out.print(PN[i]+" ");
+      if(PN[i]>maxvalue){
+        maxvalue=PN[i];
+        maxvalueindex=i;
+      }
+    }
+    System.out.println();
+
+    //creating a visted array
+
+    boolean visited[]=new boolean[values.length];
+    for(int i=0;i<values.length;i++){
+      visited[i]=false;
+    }
+    Double currweight=0.0;
+    double solution=0.0;
+    boolean case1=false;
+    int count=values.length;
+    while(count>0){
+        int indextobechecked=case1?getnextlargest(PN,maxvalue,visited):maxvalueindex;
+        visited[indextobechecked]=true;
+        System.out.println("checking out "+indextobechecked);
+        case1=true;
+        if(isvalid(currweight,weights,values,indextobechecked,capacity)){
+          solution=solution+values[indextobechecked];
+          currweight=currweight+weights[indextobechecked];
+        }else{
+          double fraction=findfraction(currweight,weights,values,indextobechecked,capacity);
+          solution=solution+(fraction*values[indextobechecked]);
+          currweight=(double)capacity;
+          break;
+        }
+      count--;
+      maxvalue=PN[indextobechecked];
+    } 
+    return solution;
+    }
+    public static int getnextlargest(double []PN,double max,boolean visited[]){
+      double maxvalue=0;
+      int maxvalueindex=0;
+      for(int i=0;i<PN.length;i++){
+        
+        if(PN[i]>maxvalue && PN[i]!=max &&visited[i]==false){
+          maxvalue=PN[i];
+          maxvalueindex=i;
+        }
+    }
+    return maxvalueindex;
+  }
+  public static  boolean isvalid(double currweight,int weights[],int values[],int index,int maxweight){
+    return currweight+weights[index]<=maxweight;
+  }
+  public static double findfraction(double currweight,int weights[],int values[],int index,int maxweight){     
+    return (maxweight-currweight)/weights[index];
+  }
+}

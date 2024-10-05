@@ -1,0 +1,60 @@
+public class Solution
+{
+    public static void merge(int arr[], int l, int m, int r)
+    {
+       int leftArrSize=m-l+1,rightArrSize=r-m;
+       //creating array
+       int leftarr[]=new int[leftArrSize];
+       int rightarr[]=new int[rightArrSize];
+
+       //populate the arr
+       for(int i=0;i<leftArrSize;i++){
+        leftarr[i]=arr[l+i];
+       }
+       for(int i=0;i<rightArrSize;i++){
+        rightarr[i]=arr[m+1+i];
+       }
+       //populate in main arr
+       int left=0,right=0;
+       int currentpos=l;
+       while(left<leftArrSize && right<rightArrSize){
+        if(leftarr[left]<=rightarr[right]){
+            arr[currentpos]=leftarr[left];
+            left++;
+            currentpos++;
+        }else{
+            arr[currentpos]=rightarr[right];
+            right++;
+            currentpos++;
+        }
+       }
+       ////
+       while(right<rightArrSize){
+            arr[currentpos]=rightarr[right];
+            right++;
+            currentpos++;
+        }
+        
+        while(left<leftArrSize){
+            arr[currentpos]=leftarr[left];
+            left++;
+            currentpos++;
+            }
+       }
+
+
+    
+
+    public static void mergeSort(int arr[], int l, int r)
+    {
+        if(l<r){
+            int mid=(l+r)/2;
+            mergeSort(arr,l,mid);
+            mergeSort(arr,mid+1,r);
+            merge(arr,l,mid,r);
+        }
+
+
+
+    }
+}

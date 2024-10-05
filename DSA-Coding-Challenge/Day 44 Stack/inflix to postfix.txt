@@ -1,7 +1,5 @@
- Infix to Postfix
-Stack
-String
-LinkedInIBMInfosysVisa
+Infix to Postfix
+
 Problem Statement
 Given an infix expression in the form of string str. Convert this infix expression to a postfix expression.
 
