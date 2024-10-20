@@ -1,0 +1,93 @@
+Problem Statement
+Given N activities with their start and finish day given in array start[ ] and end[ ]. Select the maximum number of activities that can be performed by a single person, assuming that a person can only work on a single activity at a given day.
+
+Note : Duration of the activity includes both starting and ending day.
+
+Example 1:
+Input:
+
+N = 2
+start[] = {2, 1}
+end[] = {2, 2}
+
+Output: 
+
+1
+
+Explanation:
+
+A person can perform only one of the given activities.
+
+Example 2:
+Input:
+
+N = 4
+start[] = {1, 3, 2, 5}
+end[] = {2, 4, 3, 6}
+
+Output: 
+
+3
+
+Explanation:
+
+A person can perform activities 1, 2 and 4.
+
+solution -
+import java.util.*;
+
+public class Solution
+{
+    public static int activitySelection(int start[], int stop[], int n)
+    {
+      //You can code here
+
+      // use classes to create custom object 
+      // then sort using comparator
+      // check if the condition are valid for doing a work
+
+      List<activity> ac=new ArrayList<>();
+      for(int i=0;i<n;i++){
+        ac.add(new activity(start[i],stop[i]));
+      }
+      Collections.sort(ac,new Comparator<activity>(){
+        @Override
+        public int compare(activity a1,activity a2){
+          return a1.stop-a2.stop;
+        }
+      });
+      System.out.println(ac);
+
+      int activitycount=1;
+      int currentdate=ac.get(0).stop;
+      for(int i=1;i<ac.size();i++){
+        if(ac.get(i).start>currentdate){
+          activitycount++;
+          currentdate=ac.get(i).stop;
+        }
+        
+      }
+
+      return activitycount;
+    }
+   static class activity{
+      int start;
+      int stop;
+      int interval;
+
+      activity(int start,int stop){
+        this.start=start;
+        this.stop=stop;
+        interval=stop-start;
+      }
+      @Override
+        public String toString() {
+            return "Activity{" +
+                    "start=" + start +
+                    ", stop=" + stop +
+                    ", interval= "+interval+
+                    '}';
+        }
+    }
+
+}
