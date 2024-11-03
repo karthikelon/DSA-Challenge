@@ -1,0 +1,40 @@
+
+import java.util.*;
+public class Main
+{
+	public static void main(String[] args) {
+		int arr[]={-3,-2,-1,0,0,1,2,3};
+		System.out.println(fourSum(arr,0));
+		
+	}
+	public static List<List<Integer>> fourSum(int[] arr, int target) {
+        Set<List<Integer>> solution=new HashSet<>();
+        
+        Arrays.sort(arr);
+        for(int i=0;i<arr.length-3;i++){
+            innerloop:
+            for(int j=i+1;j<arr.length-2;j++){
+                int left=j+1;
+                int right=arr.length-1;
+                while(left<right){
+                    if(arr[i]+arr[j]+arr[left]+arr[right]==target){
+                        List<Integer>subsolution=Arrays.asList(arr[i],arr[j],arr[left],arr[right]);
+                        solution.add(subsolution);
+                        left++ ;
+                        right--;
+                    }else if(arr[i]+arr[j]+arr[left]+arr[right]>target){
+                       right--;
+                    }else if(arr[i]+arr[j]+arr[left]+arr[right]<target){
+                       left++;
+                    }
+                }
+            }
+          
+        }
+        List<List<Integer>>finalsol=new ArrayList<>();
+        for(List x:solution){
+            finalsol.add(x);
+        }
+        return finalsol;
+    }
+}

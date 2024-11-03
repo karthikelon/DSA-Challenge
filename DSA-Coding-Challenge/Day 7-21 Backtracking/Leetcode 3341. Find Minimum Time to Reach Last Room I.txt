@@ -1,0 +1,43 @@
+import java.util.concurrent.atomic.AtomicInteger;
+
+class Solution {
+    public int minTimeToReach(int[][] movetime) {
+        int n = movetime.length;
+        int m = movetime[0].length;
+        int[][] visited = new int[n][m];
+        AtomicInteger currentMinTime = new AtomicInteger(Integer.MAX_VALUE);
+        minTime(movetime, visited, currentMinTime, 0, 0, 0, n - 1, m - 1);
+        return currentMinTime.get();
+    }
+
+    public void minTime(int[][] movetime, int[][] visited, AtomicInteger currentMinTime, int tempTime, int x, int y, int tx, int ty) {
+        if (x == tx && y == ty) {
+            // Reached the destination
+            if (tempTime < currentMinTime.get()) {
+                currentMinTime.set(tempTime);
+            }
+            return;
+        }
+
+        if (!isValidPosition(visited, x, y, tx, ty)) {
+            return;
+        }
+
+        visited[x][y] = 1; // Mark the cell as visited
+
+        int nextTime = tempTime >= movetime[x][y] ? tempTime + 1 : movetime[x][y] + 1;
+
+        // Explore all possible directions
+        minTime(movetime, visited, currentMinTime, nextTime, x - 1, y, tx, ty); // Up
+        minTime(movetime, visited, currentMinTime, nextTime, x + 1, y, tx, ty); // Down
+        minTime(movetime, visited, currentMinTime, nextTime, x, y - 1, tx, ty); // Left
+        minTime(movetime, visited, currentMinTime, nextTime, x, y + 1, tx, ty); // Right
+
+        visited[x][y] = 0; // Reset after all directions are explored
+    }
+
+    public boolean isValidPosition(int[][] visited, int x, int y, int tx, int ty) {
+        return x >= 0 && x <= tx && y >= 0 && y <= ty && visited[x][y] == 0;
+    }
+
+    }

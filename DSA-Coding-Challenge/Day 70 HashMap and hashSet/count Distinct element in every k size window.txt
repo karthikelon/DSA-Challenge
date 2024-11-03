@@ -1,0 +1,51 @@
+
+import java.util.*;
+public class Main
+{
+	public static void main(String[] args) {
+		
+		ArrayList<Integer>arr=new ArrayList<>();
+		arr.add(1);
+		arr.add(2);
+		arr.add(2);
+		arr.add(1);
+		arr.add(4);
+		arr.add(4);
+		arr.add(3);
+		int k=4;
+		
+		System.out.println(countDistinctElements(arr,k));
+	}
+	public static ArrayList<Integer> countDistinctElements(ArrayList<Integer> arr, int k) {
+
+		ArrayList<Integer>list=new ArrayList<>();
+		HashMap<Integer,Integer>map=new HashMap<>();
+		for(int i=0;i<k;i++){
+		    int tempkey=arr.get(i);
+		    
+			if(map.containsKey(arr.get(i))){
+			    map.put(tempkey,map.get(tempkey)+1);
+			}else{
+			    map.put(tempkey,1);
+			}
+		}
+		list.add(map.size());
+		for(int i=1;i<=arr.size()-k;i++){
+			int temp=arr.get(i-1);
+			if(map.containsKey(temp)&&map.get(temp)>1){
+			    map.put(temp,map.get(temp)-1);
+			}else{
+			    map.remove(temp);
+			}
+			int temp2=arr.get(i+k-1);
+			if(map.containsKey(temp2)){
+			    map.put(temp2,map.get(temp2)+1);
+			}else{
+			    map.put(temp2,1);
+			}
+			list.add(map.size());
+		}
+		
+		return list;
+	}
+}

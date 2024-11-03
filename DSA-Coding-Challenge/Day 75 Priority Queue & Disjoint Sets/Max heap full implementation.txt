@@ -1,0 +1,98 @@
+
+
+public class Main
+{
+	public static void main(String[] args) {
+		Maxheap m1=new Maxheap(10);
+		m1.insert(6);
+		m1.insert(69);
+		/*
+		m1.insert(36);
+		m1.insert(62);
+		m1.insert(51);
+        m1.insert(61);
+        */
+        System.out.println("deleted node is "+m1.deletenode());
+        m1.printarr(m1.arr);
+		m1.insert(6);
+		m1.insert(60);
+		m1.insert(41);
+		m1.printarr(m1.arr);
+	}
+}
+class Maxheap{
+    
+    int capacity;
+    int size;
+    int arr[];
+    
+    public Maxheap(int capacity){
+        this.capacity =capacity;
+        this.arr=new int[capacity];
+        this.size=0;
+    }
+    //O(log(N))
+   public boolean insert(int x){
+       if(size>=capacity){
+           return false;
+       }
+       arr[size]=x;
+       int currentindex=size;
+       int parentindex=(currentindex-1)/2;
+       int childindex=currentindex;
+       while(parentindex>=0 && arr[parentindex]<arr[childindex]){
+            swap(parentindex,childindex,arr);
+            currentindex=parentindex;
+            parentindex=(currentindex-1)/2;
+            childindex=currentindex;
+            
+       }
+       size++;
+       return true;
+   }//(O(logN))
+   public int deletenode(){
+       if(size<0){
+           System.out.println("empty heap");
+           return -1;
+       }
+       int temp=arr[0];
+       swap(size,0,arr);
+       arr[size]=0;
+       
+       heapify(arr,0);
+       size--;
+       return temp;
+   }
+   public void heapify(int arr[],int i){
+       if(i*2+1>size){
+           return;
+       }
+       int parent=i;
+       int largest=parent;
+       int left=2*parent+1;
+       int right=2*parent+2;
+       if(arr[parent]<arr[left]){
+           largest=left;
+       }if(arr[left]<arr[right]){
+           largest=right;
+        }
+        while(largest!=parent){
+            swap(largest,parent,arr);
+            parent=largest;
+            heapify(arr,parent);
+        }
+   }
+   public void printarr(int arr[]){
+       System.out.println();
+       for(int i=0;i<size;i++){
+           System.out.print(arr[i]+" ");
+       }
+   }
+   public void swap(int x,int y,int arr[]){
+        int temp=arr[x];
+        arr[x]=arr[y];
+        arr[y]=temp;
+       
+   }
+    
+}

@@ -1,0 +1,23 @@
+public class Solution {
+    
+    public boolean countSub(long arr[], long n) {
+    
+        //You can code here
+
+        ///n/2-1 is the index of the last non leaf node in level order traversal
+      long parent, left, right;
+      for(long i=0;i<n/2-1;i++){
+         parent=i;
+         left=2*i+1;
+         right=2*i+2;
+        // boolean status=false;
+         if(left<n && arr[(int)parent]<arr[(int)left]){
+                return false;
+         }
+         if(right<n && arr[(int)parent]<arr[()right]){
+                return false;
+         }
+      }
+      return true;
+    }
+}
