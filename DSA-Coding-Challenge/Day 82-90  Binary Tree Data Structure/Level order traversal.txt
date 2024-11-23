@@ -1,0 +1,71 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public List<List<Integer>> levelOrder(TreeNode root) {
+          List<List<Integer>> solution=new ArrayList<>();
+      
+      List<Integer> l1=new ArrayList<>();
+      if(root!=null){
+        l1.add(root.val);
+      }
+      int level=0;
+      if(l1.size()>0){
+          solution.add(l1);
+          level=1;
+        }
+
+      helper(root,solution,level);
+      
+        return solution;
+    }
+     public static void helper(TreeNode root,List<List<Integer>> solution ,int level){
+      if(root==null){ 
+        return;
+      }
+      List<Integer> l1=new ArrayList<>();
+      if(solution.size()<=level){
+            if(root.left!=null){
+                l1.add(root.left.val);
+            }
+            if(root.right!=null){
+                l1.add(root.right.val);
+            }
+        
+        
+            if(l1.size()>0){
+                solution.add(l1);
+            }
+      }
+      else{
+        System.out.println("comming to required level after full left traversal");
+            if(root.left!=null){
+                int x=root.left.val;
+                solution.get(level).add(x);
+            }
+            if(root.right!=null){
+                int y= root.right.val;
+                solution.get(level).add(y);
+            }
+
+        
+      }
+     
+      helper(root.left,solution,level+1);
+      helper(root.right,solution,level+1);
+      
+      
+    }
+}

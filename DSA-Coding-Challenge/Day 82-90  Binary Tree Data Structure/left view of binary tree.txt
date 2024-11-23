@@ -1,0 +1,39 @@
+import java.util.*;
+
+/* class TreeNode {
+	int val;
+	TreeNode left;
+	TreeNode right;
+
+	public TreeNode(int data) {
+		this.val = data;
+		left = null;
+		right = null;
+	}
+} */
+
+public class Solution {
+	public static List<Integer> leftView(TreeNode root) {
+			List<Integer>solution=new ArrayList<>();
+			helper(root,solution,0);
+			return solution;
+      
+	}public static void  helper(TreeNode root,List<Integer>solution,int height){
+		if(root==null){
+			System.out.println("returning due to null value");
+			return;
+		}
+		System.out.println("adding the node"+root.val);
+		
+		  if(solution.size()==height){
+				solution.add(root.val);
+			}
+			helper(root.left,solution,height+1);
+			helper(root.right,solution,height+1);
+		
+		
+
+		
+		
+	}
+}

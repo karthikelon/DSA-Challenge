@@ -1,0 +1,36 @@
+/* class TreeNode {
+	int val;
+	TreeNode left;
+	TreeNode right;
+
+	public TreeNode(int data) {
+		this.val = data;
+		left = null;
+		right = null;
+	}
+} */
+
+public class Solution {
+	public static boolean isSymmetric(TreeNode root) {
+		//boolean status=true;
+		
+		return helper(root);
+	}
+	public static boolean helper(TreeNode root){
+		
+    if((root.left!=null&&root.right==null)||(root.left==null&&root.right!=null)){
+      
+			return false;
+		}
+		if((root.left!=null&&root.right!=null)&&(root.left.val!=root.right.val)){
+      //status=false;
+			return false;
+		}
+    if((root.left==null&&root.right==null)){
+			return true;
+		}
+		isSymmetric(root.left);
+		isSymmetric(root.right);
+    return true;
+	}
+}
