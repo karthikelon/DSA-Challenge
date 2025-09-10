@@ -1,0 +1,27 @@
+public class Solution {
+
+    public static int numberOfPaths(int m, int n) {
+
+      
+      return helper(0,0,m,n);
+
+    }
+    public static int helper(int row,int col,int m,int n){
+
+      if(!isvalid(row,col,m,n)){
+        return 0;
+      }
+      if(row==m-1||col==n-1){
+         return 1;
+      }
+      
+      return helper(row+1,col,m,n)+helper(row,col+1,m,n);
+    }
+
+    public static boolean isvalid(int row,int col,int m,int n){
+      if(col<0||col>m || row<0||row>n){
+        return false;
+      }
+      return true;
+    }
+}
